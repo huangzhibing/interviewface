@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qc.mapper.StudentInfoMapper">
+  <resultMap id="BaseResultMap" type="com.qc.pojo.StudentInfo">
+    <id column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="school_id" jdbcType="INTEGER" property="schoolId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    student_id, student_name,name, school_id, status, email, mobile
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student_info
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from student_info
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </delete>
+    <select id="countStudent" resultType="java.lang.Integer" >
+        select count(*) from student_info
+        <where>
+            <if test="schoolId != null and school != ''">
+                school_id = #{schoolId}
+            </if>
+        </where>
+    </select>
+    <select id="findByPaging" parameterType="PagingVO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from student_info
+        limit #{toPageNo}, #{pageSize}
+    </select>
+  <insert id="insert" parameterType="com.qc.pojo.StudentInfo">
+    insert into student_info (student_id, student_name, name, school_id,
+      status, email, mobile
+      )
+    values (#{studentId,jdbcType=INTEGER}, #{studentName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},#{schoolId,jdbcType=INTEGER},
+      #{status,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qc.pojo.StudentInfo">
+    insert into student_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="studentName != null">
+        student_name,
+      </if>
+        <if test="name != null">
+            name,
+        </if>
+      <if test="schoolId != null">
+        school_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null">
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+       <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+        </if>
+      <if test="schoolId != null">
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qc.pojo.StudentInfo">
+    update student_info
+    <set>
+      <if test="studentName != null">
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+        <if test="name != null">
+            name = #{name,jdbcType=VARCHAR},
+        </if>
+      <if test="schoolId != null">
+        school_id = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qc.pojo.StudentInfo">
+    update student_info
+    set student_name = #{studentName,jdbcType=VARCHAR},
+    name = #{name,jdbcType=VARCHAR},
+      school_id = #{schoolId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR}
+    where student_id = #{studentId,jdbcType=INTEGER}
+  </update>
+</mapper>
