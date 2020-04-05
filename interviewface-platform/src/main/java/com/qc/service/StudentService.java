@@ -39,11 +39,11 @@ public class StudentService {
 		return studentInfoMapper.deleteByPrimaryKey(id);
 	}
 
-	public List<StudentInfo> findByPaging(Integer toPageNo){
+	public List<StudentInfo> findByPaging(Integer toPageNo,Integer schoolId){
 		PagingVO pagingVO = new PagingVO();
 		pagingVO.setToPageNo(toPageNo);
 
-		List<StudentInfo> list = studentInfoMapper.findByPaging(pagingVO);
+		List<StudentInfo> list = studentInfoMapper.findByPaging(pagingVO,schoolId);
 
 		return list;
 	}

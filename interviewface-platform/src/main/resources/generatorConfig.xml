@@ -60,7 +60,7 @@
                selectByExampleQueryId="false"></table>
                -->
 
-        <table tableName="employer_info" domainObjectName="EmployerInfo"
+        <table tableName="apply_info" domainObjectName="ApplyInfo"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>

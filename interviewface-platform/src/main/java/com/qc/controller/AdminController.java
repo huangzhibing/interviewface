@@ -45,10 +45,10 @@ public class AdminController {
 		pagingVO.setTotalCount(studentService.getCountStudent(null));
 		if (page == null || page == 0) {
 			pagingVO.setToPageNo(1);
-			list = studentService.findByPaging(1);
+			list = studentService.findByPaging(1,null);
 		} else {
 			pagingVO.setToPageNo(page);
-			list = studentService.findByPaging(page);
+			list = studentService.findByPaging(page,null);
 		}
 
 		model.addAttribute("studentList", list);

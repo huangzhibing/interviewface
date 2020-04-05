@@ -33,23 +33,24 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <form name="reset" class="form-horizontal" role="form" action="student/editStudentInfo" id="editfrom" method="post" onsubmit="return check()">
+                    <form name="school" class="form-horizontal" role="form" action="school/editSchoolInfo" id="editfrom" method="post" onsubmit="return check()">
+                        <input style="display: none;" name="schoolId" value="${student.schoolId}">
                         <div class="form-group">
-                            <label for="username" class="col-sm-2 control-label">用户名</label>
+                            <label for="schoolName" class="col-sm-2 control-label">用户名</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="username" id="username" readonly="readonly" >
+                                <input type="text" class="form-control" value="${school.schoolName}" name="schoolName" id="schoolName" readonly="readonly" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">学校名称</label>
                             <div class="col-sm-10">
-                                <input type="text" name="name" class="form-control" id="name" placeholder="请输入学校名称">
+                                <input type="text" name="name" value="${school.name}" class="form-control" id="name" placeholder="请输入学校名称">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-sm-2 control-label">电子邮箱</label>
                             <div class="col-sm-10">
-                                <input type="text"  name="email" class="form-control" id="email" placeholder="请输入邮箱">
+                                <input type="text"  name="email" value="${school.email}" class="form-control" id="email" placeholder="请输入邮箱">
                             </div>
                         </div>
                         <div class="form-group" style="text-align: center">
@@ -72,6 +73,9 @@
 </body>
 <script>
     $("#nav li:nth-child(1)").addClass("active")
+    if("${message}" != ""){
+        alert("${message}");
+    }
 </script>
 </html>
 

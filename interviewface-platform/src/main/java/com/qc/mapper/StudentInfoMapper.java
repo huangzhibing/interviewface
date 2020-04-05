@@ -2,6 +2,8 @@ package com.qc.mapper;
 
 import com.qc.pojo.PagingVO;
 import com.qc.pojo.StudentInfo;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface StudentInfoMapper {
@@ -17,7 +19,7 @@ public interface StudentInfoMapper {
 
     int updateByPrimaryKey(StudentInfo record);
 
-    int countStudent(Integer schoolId);
+    int countStudent(@Param("schoolId") Integer schoolId);
 
-    List<StudentInfo> findByPaging(PagingVO pagingVO);
+    List<StudentInfo> findByPaging(@Param("pagingVO") PagingVO pagingVO,@Param("schoolId") Integer schoolId);
 }

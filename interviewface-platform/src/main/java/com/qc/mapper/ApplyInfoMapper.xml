@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qc.mapper.ApplyInfoMapper">
+  <resultMap id="BaseResultMap" type="com.qc.pojo.ApplyInfo">
+    <id column="apply_id" jdbcType="INTEGER" property="applyId" />
+    <result column="employment_id" jdbcType="INTEGER" property="employmentId" />
+    <result column="employer_id" jdbcType="INTEGER" property="employerId" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="resume_path" jdbcType="VARCHAR" property="resumePath" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    apply_id, employment_id, employer_id, student_id, resume_path
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from apply_info
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from apply_info
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qc.pojo.ApplyInfo">
+    insert into apply_info (apply_id, employment_id, employer_id, 
+      student_id, resume_path)
+    values (#{applyId,jdbcType=INTEGER}, #{employmentId,jdbcType=INTEGER}, #{employerId,jdbcType=INTEGER}, 
+      #{studentId,jdbcType=INTEGER}, #{resumePath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qc.pojo.ApplyInfo">
+    insert into apply_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        apply_id,
+      </if>
+      <if test="employmentId != null">
+        employment_id,
+      </if>
+      <if test="employerId != null">
+        employer_id,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="resumePath != null">
+        resume_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="applyId != null">
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="employmentId != null">
+        #{employmentId,jdbcType=INTEGER},
+      </if>
+      <if test="employerId != null">
+        #{employerId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="resumePath != null">
+        #{resumePath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qc.pojo.ApplyInfo">
+    update apply_info
+    <set>
+      <if test="employmentId != null">
+        employment_id = #{employmentId,jdbcType=INTEGER},
+      </if>
+      <if test="employerId != null">
+        employer_id = #{employerId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="resumePath != null">
+        resume_path = #{resumePath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qc.pojo.ApplyInfo">
+    update apply_info
+    set employment_id = #{employmentId,jdbcType=INTEGER},
+      employer_id = #{employerId,jdbcType=INTEGER},
+      student_id = #{studentId,jdbcType=INTEGER},
+      resume_path = #{resumePath,jdbcType=VARCHAR}
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -23,19 +23,24 @@
     delete from student_info
     where student_id = #{studentId,jdbcType=INTEGER}
   </delete>
-    <select id="countStudent" resultType="java.lang.Integer" >
+    <select id="countStudent" resultType="int">
         select count(*) from student_info
         <where>
-            <if test="schoolId != null and school != ''">
+            <if test="schoolId != null">
                 school_id = #{schoolId}
             </if>
         </where>
     </select>
-    <select id="findByPaging" parameterType="PagingVO" resultMap="BaseResultMap">
+    <select id="findByPaging" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from student_info
-        limit #{toPageNo}, #{pageSize}
+        <where>
+            <if test="schoolId != null">
+                school_id = #{schoolId}
+            </if>
+        </where>
+        limit #{pagingVO.toPageNo}, #{pagingVO.pageSize}
     </select>
   <insert id="insert" parameterType="com.qc.pojo.StudentInfo">
     insert into student_info (student_id, student_name, name, school_id,
