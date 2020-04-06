@@ -47,4 +47,8 @@ public class ApplyService {
 
 		return list;
 	}
+
+	public List<ApplyInfo> findList(ApplyInfo applyInfo){
+		return applyInfoMapper.findList(applyInfo);
+	}
 }

@@ -21,4 +21,6 @@ public interface ApplyInfoMapper {
 	int countApply();
 
 	List<ApplyInfo> findByPaging(PagingVO pagingVO);
+
+	List<ApplyInfo> findList(ApplyInfo applyInfo);
 }

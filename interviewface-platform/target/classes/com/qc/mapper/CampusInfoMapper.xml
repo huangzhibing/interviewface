@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qc.mapper.CampusInfoMapper">
+  <resultMap id="BaseResultMap" type="com.qc.pojo.CampusInfo">
+    <id column="recruitment_id" jdbcType="INTEGER" property="recruitmentId" />
+    <result column="employer_id" jdbcType="INTEGER" property="employerId" />
+    <result column="employer_name" jdbcType="VARCHAR" property="employerName" />
+    <result column="school_id" jdbcType="INTEGER" property="schoolId" />
+    <result column="school_name" jdbcType="VARCHAR" property="schoolName" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    recruitment_id, employer_id, employer_name, school_id, school_name, time, position
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from campus_info
+    where recruitment_id = #{recruitmentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from campus_info
+    where recruitment_id = #{recruitmentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qc.pojo.CampusInfo">
+    insert into campus_info (recruitment_id, employer_id, employer_name, 
+      school_id, school_name, time, 
+      position)
+    values (#{recruitmentId,jdbcType=INTEGER}, #{employerId,jdbcType=INTEGER}, #{employerName,jdbcType=VARCHAR}, 
+      #{schoolId,jdbcType=INTEGER}, #{schoolName,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{position,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qc.pojo.CampusInfo">
+    insert into campus_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recruitmentId != null">
+        recruitment_id,
+      </if>
+      <if test="employerId != null">
+        employer_id,
+      </if>
+      <if test="employerName != null">
+        employer_name,
+      </if>
+      <if test="schoolId != null">
+        school_id,
+      </if>
+      <if test="schoolName != null">
+        school_name,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recruitmentId != null">
+        #{recruitmentId,jdbcType=INTEGER},
+      </if>
+      <if test="employerId != null">
+        #{employerId,jdbcType=INTEGER},
+      </if>
+      <if test="employerName != null">
+        #{employerName,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolName != null">
+        #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qc.pojo.CampusInfo">
+    update campus_info
+    <set>
+      <if test="employerId != null">
+        employer_id = #{employerId,jdbcType=INTEGER},
+      </if>
+      <if test="employerName != null">
+        employer_name = #{employerName,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        school_id = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolName != null">
+        school_name = #{schoolName,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where recruitment_id = #{recruitmentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qc.pojo.CampusInfo">
+    update campus_info
+    set employer_id = #{employerId,jdbcType=INTEGER},
+      employer_name = #{employerName,jdbcType=VARCHAR},
+      school_id = #{schoolId,jdbcType=INTEGER},
+      school_name = #{schoolName,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      position = #{position,jdbcType=VARCHAR}
+    where recruitment_id = #{recruitmentId,jdbcType=INTEGER}
+  </update>
+</mapper>

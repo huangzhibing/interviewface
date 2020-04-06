@@ -19,6 +19,16 @@ public class EmploymentInfo {
 
     private String name;
 
+    private String file;
+
+	public String getFile() {
+		return file;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
+	}
+
 	public String getName() {
 		return name;
 	}

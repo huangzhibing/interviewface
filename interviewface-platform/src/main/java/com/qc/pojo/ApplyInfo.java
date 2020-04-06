@@ -17,7 +17,47 @@ public class ApplyInfo {
 
     private Date interviewTime;
 
-    public Integer getApplyId() {
+    private String employerName;
+
+	private String position;
+
+	private String price;
+
+	private String studentName;
+
+	public String getEmployerName() {
+		return employerName;
+	}
+
+	public void setEmployerName(String employerName) {
+		this.employerName = employerName;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public Integer getApplyId() {
         return applyId;
     }
 

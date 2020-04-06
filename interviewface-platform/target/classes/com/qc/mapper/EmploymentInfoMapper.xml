@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qc.mapper.EmploymentInfoMapper">
+  <resultMap id="BaseResultMap" type="com.qc.pojo.EmploymentInfo">
+    <id column="employment_id" jdbcType="INTEGER" property="employmentId" />
+    <result column="employer_id" jdbcType="INTEGER" property="employerId" />
+    <result column="employer_name" jdbcType="VARCHAR" property="employerName" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="besiness_date" jdbcType="VARCHAR" property="besinessDate" />
+    <result column="work_address" jdbcType="VARCHAR" property="workAddress" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    employment_id, employer_id, employer_name, position, status, besiness_date, work_address, 
+    price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employment_info
+    where employment_id = #{employmentId,jdbcType=INTEGER}
+  </select>
+    <select id="countEmployment" resultType="int">
+        select count(*) from employment_info
+    </select>
+    <select id="findByPaging" parameterType="PagingVO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from employment_info
+        limit #{toPageNo}, #{pageSize}
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from employment_info
+    where employment_id = #{employmentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qc.pojo.EmploymentInfo">
+    insert into employment_info (employment_id, employer_id, employer_name, 
+      position, status, besiness_date, 
+      work_address, price)
+    values (#{employmentId,jdbcType=INTEGER}, #{employerId,jdbcType=INTEGER}, #{employerName,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{besinessDate,jdbcType=VARCHAR}, 
+      #{workAddress,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qc.pojo.EmploymentInfo">
+    insert into employment_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="employmentId != null">
+        employment_id,
+      </if>
+      <if test="employerId != null">
+        employer_id,
+      </if>
+      <if test="employerName != null">
+        employer_name,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="besinessDate != null">
+        besiness_date,
+      </if>
+      <if test="workAddress != null">
+        work_address,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="employmentId != null">
+        #{employmentId,jdbcType=INTEGER},
+      </if>
+      <if test="employerId != null">
+        #{employerId,jdbcType=INTEGER},
+      </if>
+      <if test="employerName != null">
+        #{employerName,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="besinessDate != null">
+        #{besinessDate,jdbcType=VARCHAR},
+      </if>
+      <if test="workAddress != null">
+        #{workAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qc.pojo.EmploymentInfo">
+    update employment_info
+    <set>
+      <if test="employerId != null">
+        employer_id = #{employerId,jdbcType=INTEGER},
+      </if>
+      <if test="employerName != null">
+        employer_name = #{employerName,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="besinessDate != null">
+        besiness_date = #{besinessDate,jdbcType=VARCHAR},
+      </if>
+      <if test="workAddress != null">
+        work_address = #{workAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where employment_id = #{employmentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qc.pojo.EmploymentInfo">
+    update employment_info
+    set employer_id = #{employerId,jdbcType=INTEGER},
+      employer_name = #{employerName,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      besiness_date = #{besinessDate,jdbcType=VARCHAR},
+      work_address = #{workAddress,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR}
+    where employment_id = #{employmentId,jdbcType=INTEGER}
+  </update>
+</mapper>
