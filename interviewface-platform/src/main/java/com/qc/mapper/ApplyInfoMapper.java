@@ -1,6 +1,9 @@
 package com.qc.mapper;
 
 import com.qc.pojo.ApplyInfo;
+import com.qc.pojo.PagingVO;
+
+import java.util.List;
 
 public interface ApplyInfoMapper {
     int deleteByPrimaryKey(Integer applyId);
@@ -14,4 +17,8 @@ public interface ApplyInfoMapper {
     int updateByPrimaryKeySelective(ApplyInfo record);
 
     int updateByPrimaryKey(ApplyInfo record);
+
+	int countApply();
+
+	List<ApplyInfo> findByPaging(PagingVO pagingVO);
 }

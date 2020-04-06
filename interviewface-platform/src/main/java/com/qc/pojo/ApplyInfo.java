@@ -1,5 +1,7 @@
 package com.qc.pojo;
 
+import java.util.Date;
+
 public class ApplyInfo {
     private Integer applyId;
 
@@ -10,6 +12,10 @@ public class ApplyInfo {
     private Integer studentId;
 
     private String resumePath;
+
+    private String interviewAddress;
+
+    private Date interviewTime;
 
     public Integer getApplyId() {
         return applyId;
@@ -49,5 +55,21 @@ public class ApplyInfo {
 
     public void setResumePath(String resumePath) {
         this.resumePath = resumePath == null ? null : resumePath.trim();
+    }
+
+    public String getInterviewAddress() {
+        return interviewAddress;
+    }
+
+    public void setInterviewAddress(String interviewAddress) {
+        this.interviewAddress = interviewAddress == null ? null : interviewAddress.trim();
+    }
+
+    public Date getInterviewTime() {
+        return interviewTime;
+    }
+
+    public void setInterviewTime(Date interviewTime) {
+        this.interviewTime = interviewTime;
     }
 }

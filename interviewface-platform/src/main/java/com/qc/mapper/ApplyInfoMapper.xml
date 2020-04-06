@@ -7,9 +7,12 @@
     <result column="employer_id" jdbcType="INTEGER" property="employerId" />
     <result column="student_id" jdbcType="INTEGER" property="studentId" />
     <result column="resume_path" jdbcType="VARCHAR" property="resumePath" />
+    <result column="interview_address" jdbcType="VARCHAR" property="interviewAddress" />
+    <result column="interview_time" jdbcType="TIMESTAMP" property="interviewTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    apply_id, employment_id, employer_id, student_id, resume_path
+    apply_id, employment_id, employer_id, student_id, resume_path, interview_address, 
+    interview_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -17,15 +20,26 @@
     from apply_info
     where apply_id = #{applyId,jdbcType=INTEGER}
   </select>
+    <select id="countApply" resultType="java.lang.Integer">
+        select count(*) from apply_info
+    </select>
+    <select id="findByPaging" parameterType="PagingVO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from apply_info
+        limit #{toPageNo}, #{pageSize}
+    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from apply_info
     where apply_id = #{applyId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.qc.pojo.ApplyInfo">
     insert into apply_info (apply_id, employment_id, employer_id, 
-      student_id, resume_path)
+      student_id, resume_path, interview_address, 
+      interview_time)
     values (#{applyId,jdbcType=INTEGER}, #{employmentId,jdbcType=INTEGER}, #{employerId,jdbcType=INTEGER}, 
-      #{studentId,jdbcType=INTEGER}, #{resumePath,jdbcType=VARCHAR})
+      #{studentId,jdbcType=INTEGER}, #{resumePath,jdbcType=VARCHAR}, #{interviewAddress,jdbcType=VARCHAR}, 
+      #{interviewTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.qc.pojo.ApplyInfo">
     insert into apply_info
@@ -45,6 +59,12 @@
       <if test="resumePath != null">
         resume_path,
       </if>
+      <if test="interviewAddress != null">
+        interview_address,
+      </if>
+      <if test="interviewTime != null">
+        interview_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="applyId != null">
@@ -61,6 +81,12 @@
       </if>
       <if test="resumePath != null">
         #{resumePath,jdbcType=VARCHAR},
+      </if>
+      <if test="interviewAddress != null">
+        #{interviewAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="interviewTime != null">
+        #{interviewTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -79,6 +105,12 @@
       <if test="resumePath != null">
         resume_path = #{resumePath,jdbcType=VARCHAR},
       </if>
+      <if test="interviewAddress != null">
+        interview_address = #{interviewAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="interviewTime != null">
+        interview_time = #{interviewTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where apply_id = #{applyId,jdbcType=INTEGER}
   </update>
@@ -87,7 +119,9 @@
     set employment_id = #{employmentId,jdbcType=INTEGER},
       employer_id = #{employerId,jdbcType=INTEGER},
       student_id = #{studentId,jdbcType=INTEGER},
-      resume_path = #{resumePath,jdbcType=VARCHAR}
+      resume_path = #{resumePath,jdbcType=VARCHAR},
+      interview_address = #{interviewAddress,jdbcType=VARCHAR},
+      interview_time = #{interviewTime,jdbcType=TIMESTAMP}
     where apply_id = #{applyId,jdbcType=INTEGER}
   </update>
 </mapper>

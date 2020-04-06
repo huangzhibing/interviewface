@@ -1,9 +1,7 @@
 package com.qc.controller;
 
-import com.qc.pojo.EmploymentInfo;
-import com.qc.pojo.PagingVO;
-import com.qc.pojo.StudentInfo;
-import com.qc.pojo.Userlogin;
+import com.qc.pojo.*;
+import com.qc.service.ApplyService;
 import com.qc.service.EmploymentService;
 import com.qc.service.StudentService;
 import com.qc.service.UserloginService;
@@ -33,6 +31,8 @@ public class StudentController {
 	private StudentService studentService;
 	@Autowired
 	private EmploymentService employmentService;
+	@Autowired
+	private ApplyService applyService;
 
 	@RequestMapping("/personalCenter")
 	public String personalCenter(String message,Model model){
@@ -87,7 +87,7 @@ public class StudentController {
 	//上传简历
 	@ResponseBody
 	@RequestMapping(value = "ajaxUploadPdf")
-	public String ajaxUploadPdf(MultipartFile file){
+	public String ajaxUploadPdf(MultipartFile file,String id){
 		if (file.isEmpty()) {
 			try {
 				throw new Exception("文件不存在！");
@@ -96,6 +96,22 @@ public class StudentController {
 			}
 			return "投递失败！";
 		}
+
+		//todo 上传pdf
+		String path = null;
+
+		Subject subject = SecurityUtils.getSubject();
+		String username = (String) subject.getPrincipal();
+		Userlogin userlogin = new Userlogin();
+		userlogin.setUsername(username);
+		int userId = userService.selectByUserlogin(userlogin).getUserId();
+		ApplyInfo applyInfo = new ApplyInfo();
+		applyInfo.setEmploymentId(Integer.parseInt(id));
+		applyInfo.setStudentId(userId);
+		applyInfo.setResumePath(path);
+		applyService.save(applyInfo);
+
 		return "投递成功";
 	}
+
 }

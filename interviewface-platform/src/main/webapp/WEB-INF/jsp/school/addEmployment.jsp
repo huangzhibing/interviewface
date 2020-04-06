@@ -29,10 +29,11 @@
 				    </div>
 				    <div class="panel-body">
 						<form class="form-horizontal" role="form" action="/school/addEmployment" id="editfrom" method="post">
+                            <input style="display:none;" name="employerId" value="${employerId}">
 							  <div class="form-group">
 							    <label for="employerName" class="col-sm-2 control-label">招聘公司</label>
 							    <div class="col-sm-10">
-							      <input type="text" class="form-control" id="employerName" name="employerName" placeholder="请输入招聘公司名称">
+							      <input type="text" class="form-control" id="employerName" name="employerName" value="${name}" readonly="readonly" placeholder="请输入招聘公司名称">
 							    </div>
 							  </div>
 							  <div class="form-group">

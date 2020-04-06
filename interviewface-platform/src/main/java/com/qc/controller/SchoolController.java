@@ -1,10 +1,7 @@
 package com.qc.controller;
 
 import com.qc.pojo.*;
-import com.qc.service.EmploymentService;
-import com.qc.service.SchoolService;
-import com.qc.service.StudentService;
-import com.qc.service.UserloginService;
+import com.qc.service.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +29,8 @@ public class SchoolController {
 	private StudentService studentService;
 	@Autowired
 	private EmploymentService employmentService;
+	@Autowired
+	private EmployerService employerService;
 
 	@RequestMapping("/personalCenter")
 	public String personalCenter(Model model){
@@ -142,7 +141,17 @@ public class SchoolController {
 
 	// 添加招聘信息操作
 	@RequestMapping(value = "/addEmployment", method = {RequestMethod.GET})
-	public String addEmploymentUI() throws Exception {
+	public String addEmploymentUI(Model model) throws Exception {
+		Subject subject = SecurityUtils.getSubject();
+		String username = (String) subject.getPrincipal();
+		Userlogin userlogin = new Userlogin();
+		userlogin.setUsername(username);
+		int userId = userService.selectByUserlogin(userlogin).getUserId();
+		SchoolInfo schoolInfo = schoolService.getSchoolById(userId);
+		String name = schoolInfo.getName();
+
+		model.addAttribute("employerId",userId);
+		model.addAttribute("name",name);
 		return "/school/addEmployment";
 	}
 
